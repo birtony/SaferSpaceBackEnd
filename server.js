@@ -172,23 +172,31 @@ app.post("/api/users/:username/update", (req, res) => {
 // ***** Center Methods *****
 
 // Get All Centers
-app.get("/api/centers", passport.authenticate('jwt', { session: false }), (req, res) => {
-    // Call the Manager Method
-    m.centerGetAll().then((data) => {
-        res.json(data);
-    }).catch(() => {
-        res.status(404).json({ "message": "Resource not found" });
-    });
+app.get("/api/centers", (req, res) => {
+    if (req.user) {
+        // Call the Manager Method
+        m.centerGetAll().then((data) => {
+            res.json(data);
+        }).catch(() => {
+            res.status(404).json({ "message": "Resource not found" });
+        });
+    } else {
+        res.status(401).json({message: 'Not authorized'});
+    }
 });
 
 // Get One Center
-app.get("/api/centers/:centerId", passport.authenticate('jwt', { session: false }), (req, res) => {
-    // Call the Manager Method
-    m.centerGetById(req.params.courseId).then((data) => {
-        res.json(data);
-    }).catch(() => {
-        res.status(404).json({ "message": "Resource not found" });
-    });
+app.get("/api/centers/:centerId", (req, res) => {
+    if (req.user) {
+        // Call the Manager Method
+        m.centerGetById(req.params.courseId).then((data) => {
+            res.json(data);
+        }).catch(() => {
+            res.status(404).json({ "message": "Resource not found" });
+        });
+    } else {
+        res.status(401).json({message: 'Not authorized'});
+    }
 });
 
 
