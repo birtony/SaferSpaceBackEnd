@@ -20,7 +20,8 @@ var JwtStrategy = passportJWT.Strategy;
 
 // Configure its options
 var jwtOptions = {};
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
+// jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 // IMPORTANT - this secret should be a long, unguessable string 
 // (ideally stored in a "protected storage" area on the 
 // web server, a topic that is beyond the scope of this course)
@@ -121,8 +122,7 @@ app.post("/api/users/login", (req, res) => {
         // Configure the payload with data and claims
         var payload = {
           _id: data._id,
-          userName: data.userName,
-          fullName: data.fullName,
+          userName: data.username,
         };
         var token = jwt.sign(payload, jwtOptions.secretOrKey);
         // Return the result
