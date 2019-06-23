@@ -42,6 +42,12 @@ var strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
     next(null, false);
   }
 });
+
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+  });
+
 // Activate the security system
 passport.use(strategy);
 app.use(passport.initialize());
