@@ -122,7 +122,7 @@ app.post("/api/users/login", (req, res) => {
         // Configure the payload with data and claims
         var payload = {
           _id: data._id,
-          userName: data.username,
+          username: data.username,
         };
         var token = jwt.sign(payload, jwtOptions.secretOrKey);
         // Return the result
@@ -133,7 +133,7 @@ app.post("/api/users/login", (req, res) => {
 });
 
 // User Update
-app.put("/api/users/:username/update", passport.authenticate('jwt', { session: false }), (req, res) => {
+app.post("/api/users/:username/update", passport.authenticate('jwt', { session: false }), (req, res) => {
     // Call the manager method
     console.log("hello epta")
     m.userUpdate(req.params.username, req.body)
