@@ -28,20 +28,25 @@ jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 // We suggest that you generate a random 64-character string
 // using the following online tool:
 // https://lastpass.com/generatepassword.php 
-jwtOptions.secretOrKey = 'big-long-string-from-lastpass.com/generatepassword.php';
+const secretOrKey = 'big-long-string-from-lastpass.com/generatepassword.php';
 
-var strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
-  console.log('payload received', jwt_payload);
 
-  if (jwt_payload) {
-    // The following will ensure that all routes using 
-    // passport.authenticate have a req.user._id value 
-    // that matches the request payload's _id
-    next(null, { _id: jwt_payload._id });
-  } else {
-    next(null, false);
-  }
-});
+// Add Support for Incoming JSON Entities
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(function(req, res, next) {
+    if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
+      jsonwebtoken.verify(req.headers.authorization.split(' ')[1], secretOrKey, function(err, decode) {
+        if (err) req.user = undefined;
+        req.user = decode;
+        next();
+      });
+    } else {
+      req.user = undefined;
+      next();
+    }
+  });
+
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
@@ -49,8 +54,7 @@ app.use(function (req, res, next) {
   });
 
 // Activate the security system
-passport.use(strategy);
-app.use(passport.initialize());
+
 
 app.use((req,res,next) => {
     if (req.body) console.log("req.body:\n", req.body);
@@ -68,8 +72,7 @@ const manager = require("./manager.js");
 // For MondoDB Atlas Database
 const m = manager("mongodb+srv://SaferSpaceAdmin:zyhfov-jaWjiw-3vatju@saferspace-arant.azure.mongodb.net/SaferSpace?retryWrites=true&w=majority");
 
-// Add Support for Incoming JSON Entities
-app.use(bodyParser.json());
+
 
 
 // App's Home Page for Browser Clients
@@ -147,16 +150,20 @@ app.post("/api/users/login", (req, res) => {
 });
 
 // User Update
-app.post("/api/users/:username/update", passport.authenticate('jwt', { session: false }), (req, res) => {
-    // Call the manager method
-    console.log("hello epta")
-    m.userUpdate(req.params.username, req.body)
-      .then((data) => {
-        res.json({ "message": "User updated" });
-      })
-      .catch(() => {
-        res.status(404).json({ "message": "Resource not found" });
-      })
+app.post("/api/users/:username/update", (req, res) => {
+    if (req.user) {
+        // Call the manager method
+        console.log("hello epta")
+        m.userUpdate(req.params.username, req.body)
+        .then((data) => {
+            res.json({ "message": "User updated" });
+        })
+        .catch(() => {
+            res.status(404).json({ "message": "Resource not found" });
+        })
+    } else {
+        res.status(401).json({message: 'Poshel nahui govno'});
+    }
 });
 
 
