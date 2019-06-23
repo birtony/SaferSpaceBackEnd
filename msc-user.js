@@ -8,9 +8,9 @@ module.exports = new Schema({
     username: String,
     password: String,
     statusActivated: Boolean,
-    activation_code: String,
-    first_name: String,
-    last_name: String,
+    activationCode: String,
+    firstName: String,
+    lastName: String,
     gender: String,
     drug: {
       opioids: Boolean,
@@ -25,7 +25,7 @@ module.exports = new Schema({
     history: [{
       location: Number,
       date: Number,
-      drug_type: String,
+      drugType: String,
       amount: Number,
       notes: String
     }]
