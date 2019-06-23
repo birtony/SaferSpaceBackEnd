@@ -7,20 +7,20 @@ module.exports = new Schema({
     id: Number,
     username: String,
     password: String,
-    statusActivated: Bool,
+    statusActivated: Boolean,
     activation_code: String,
     first_name: String,
     last_name: String,
     gender: String,
     drug: {
-      opioids: Bool,
-      coke: Bool,
-      xanax: Bool
+      opioids: Boolean,
+      coke: Boolean,
+      xanax: Boolean
     },
     occupation: {
-      student: Bool,
-      unemployed: Bool,
-      homeless: Bool
+      student: Boolean,
+      unemployed: Boolean,
+      homeless: Boolean
     },
     history: [{
       location: Number,
