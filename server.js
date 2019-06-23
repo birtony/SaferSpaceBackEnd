@@ -123,7 +123,6 @@ app.post("/api/users/login", (req, res) => {
           _id: data._id,
           userName: data.userName,
           fullName: data.fullName,
-          role: data.role
         };
         var token = jwt.sign(payload, jwtOptions.secretOrKey);
         // Return the result
