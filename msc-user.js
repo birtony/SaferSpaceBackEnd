@@ -4,7 +4,6 @@ var Schema = mongoose.Schema;
 
 // User Schema
 module.exports = new Schema({
-    id: Number,
     username: {
         type: String,
         required: true
@@ -16,6 +15,7 @@ module.exports = new Schema({
     lastName: String,
     gender: String,
     city: String,
+    complete: Boolean,
     drug: {
       opioids: Boolean,
       coke: Boolean,

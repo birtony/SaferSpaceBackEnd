@@ -202,7 +202,6 @@ module.exports = function(mongoDBConnectionString) {
         // User Update
         userUpdate: function(username, user) {
             return new Promise(function (resolve, reject) {
-                // var wrappedItem = { "coursesSaved": courseCart };
                 Users.findByIdAndUpdate(username, user, { new: true }, (error, item) => {
                     if (error) {
                         // Cannot edit item
