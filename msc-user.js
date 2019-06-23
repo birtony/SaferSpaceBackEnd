@@ -5,7 +5,10 @@ var Schema = mongoose.Schema;
 // User Schema
 module.exports = new Schema({
     id: Number,
-    username: String,
+    username: {
+        type: String,
+        required: true
+    },
     password: String,
     statusActivated: Boolean,
     activationCode: String,
