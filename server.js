@@ -48,7 +48,7 @@ app.use(passport.initialize());
 
 app.use((req,res,next) => {
     if (req.body) console.log(req.body);
-    if (req.params) console.log(req.params);
+    if (req.headers) console.log(req.headers);
     if(req.query) console.log(req.query);
     console.log(`Received a ${req.method} request from ${req.ip} for ${req.url}`);
   next();
