@@ -5,7 +5,6 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 
 // Load the Schemas
-//const schemas = require('./js');
 const userSchema = require('./msc-user.js');
 const centerSchema = require('./msc-center.js');
 
@@ -19,8 +18,9 @@ module.exports = function(mongoDBConnectionString) {
        // Establish Connection With the Database
        connect: function() {
            return new Promise(function(resolve, reject) {
+               
                let db = mongoose.createConnection(mongoDBConnectionString);
-
+               
                db.on('error', (error) => {
                    reject(error);
                });
@@ -38,7 +38,7 @@ module.exports = function(mongoDBConnectionString) {
        usersGetAll: function() {
            return new Promise(function(resolve, reject) {
                // Fetch All Documents
-               Users.find().sort({ familyName: 'asc', givenName: 'asc' })
+               Users.find().sort({ lastName: 'asc', fristName: 'asc' })
                 .exec((error, items) => {
                     if (error) {
                         // Query Error
