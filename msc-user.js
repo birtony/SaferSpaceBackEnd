@@ -13,6 +13,7 @@ module.exports = new Schema({
     activationCode: String,
     firstName: String,
     lastName: String,
+    birthDate: String,
     gender: String,
     city: String,
     complete: Boolean,
