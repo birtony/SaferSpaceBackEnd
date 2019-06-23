@@ -142,7 +142,7 @@ app.post("/api/users/login", (req, res) => {
           _id: data._id,
           username: data.username,
         };
-        const complete = m.complete(_id)
+        const complete = m.complete(payload._id)
         var token = jwt.sign(payload, secretOrKey, { expiresIn: 1000 * 10000000});
         // Return the result
         res.json({ "message": "Login was successful", token: token, complete });
