@@ -4,25 +4,25 @@ var Schema = mongoose.Schema;
 
 // User Schema
 module.exports = new Schema({
-    id: Number,
+    id?: Number,
     username: String,
     password: String,
-    statusActivated: Boolean,
-    activationCode: String,
-    firstName: String,
-    lastName: String,
-    gender: String,
-    drug: {
+    statusActivated?: Boolean,
+    activationCode?: String,
+    firstName?: String,
+    lastName?: String,
+    gender?: String,
+    drug?: {
       opioids: Boolean,
       coke: Boolean,
       xanax: Boolean
     },
-    occupation: {
+    occupation?: {
       student: Boolean,
       unemployed: Boolean,
       homeless: Boolean
     },
-    history: [{
+    history?: [{
       location: Number,
       date: Number,
       drugType: String,
