@@ -126,6 +126,11 @@ app.post("/api/users/activate", (req, res) => {
 app.post("/api/users/create", (req, res) => {
     m.usersRegister(req.body)
       .then((data) => {
+          // Configure the payload with data and claims
+        var payload = {
+            _id: data._id,
+            username: data.username,
+          };
         var token = jwt.sign(payload, secretOrKey, { expiresIn: 1000 * 10000000});
         res.json({ "message": data, token });
       }).catch((msg) => {
