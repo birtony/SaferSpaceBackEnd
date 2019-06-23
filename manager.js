@@ -26,8 +26,8 @@ module.exports = function(mongoDBConnectionString) {
                });
 
                db.once('open', () => {
-                   Users = db.model("Users", studentSchema, "user");
-                   Centers = db.model("Centers", courseSchema, "center");
+                   Users = db.model("Users", userSchema, "user");
+                   Centers = db.model("Centers", centerSchema, "center");
                    resolve();
                });
            });
