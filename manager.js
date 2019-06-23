@@ -257,5 +257,23 @@ module.exports = function(mongoDBConnectionString) {
                });
            });
        },
-   };
+
+       // Check for complete
+       complete: function(_id) {
+           return new Promise(function(resolve, reject) {
+               Users.findById(_id, (error, item) => {
+                if (error) {
+                    // Match Is Not Found
+                    return reject(error.message);
+                }
+                // Check For an Item
+                if (item) {
+                    // If Found, One Object Will Be Returned
+                    return resolve(item.complete);
+                } else {
+                    return reject('Not found');
+                }
+           });
+       });
+   }};
 };
