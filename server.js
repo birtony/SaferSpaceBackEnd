@@ -47,9 +47,9 @@ passport.use(strategy);
 app.use(passport.initialize());
 
 app.use((req,res,next) => {
-    if (req.body) console.log(req.body);
-    if (req.headers) console.log(req.headers);
-    if(req.query) console.log(req.query);
+    if (req.body) console.log("req.body:\n", req.body);
+    if (req.headers) console.log("req.headers:\n", req.headers);
+    if(req.query) console.log("req.query:\n", req.query);
     console.log(`Received a ${req.method} request from ${req.ip} for ${req.url}`);
   next();
 });
