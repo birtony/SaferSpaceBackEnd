@@ -15,6 +15,7 @@ module.exports = new Schema({
     firstName: String,
     lastName: String,
     gender: String,
+    city: String,
     drug: {
       opioids: Boolean,
       coke: Boolean,
