@@ -199,6 +199,26 @@ module.exports = function(mongoDBConnectionString) {
             }); // return new Promise
         }, // usersLogin
 
+        // User Update
+        userUpdate: function(username, user) {
+            return new Promise(function (resolve, reject) {
+                // var wrappedItem = { "coursesSaved": courseCart };
+                Users.findByIdAndUpdate(username, user, { new: true }, (error, item) => {
+                    if (error) {
+                        // Cannot edit item
+                        return reject(error.message);
+                    }
+                    // Check for an item
+                    if (item) {
+                        // Success message will be returned
+                        return resolve("User updated");
+                    } else {
+                        return reject('Not found');
+                    }
+                });
+            });
+        },
+
        
 
        // *** Center Functions ***

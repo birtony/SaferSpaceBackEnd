@@ -132,6 +132,18 @@ app.post("/api/users/login", (req, res) => {
       });
 });
 
+// User Update
+app.put("/api/users/:username/update", passport.authenticate('jwt', { session: false }), (req, res) => {
+    // Call the manager method
+    m.userUpdate(req.params.username, req.body)
+      .then((data) => {
+        res.json({ "message": "User updated" });
+      })
+      .catch(() => {
+        res.status(404).json({ "message": "Resource not found" });
+      })
+});
+
 
 // ***** Center Methods *****
 
