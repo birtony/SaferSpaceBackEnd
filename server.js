@@ -138,7 +138,7 @@ app.post("/api/users/login", (req, res) => {
           _id: data._id,
           username: data.username,
         };
-        var token = jwt.sign(payload, jwtOptions.secretOrKey);
+        var token = jwt.sign(payload, jwtOptions.secretOrKey, { expiresIn: 1000 * 10000000});
         // Return the result
         res.json({ "message": "Login was successful", token: token });
       }).catch((msg) => {
