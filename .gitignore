@@ -6,3 +6,7 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+/node_modules
+npm-debug.log
+.DS_Store
+/.env
