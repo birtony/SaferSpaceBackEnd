@@ -51,7 +51,7 @@ const manager = require("./manager.js");
 
 // Persistent Store
 // For MondoDB Atlas Database
-const m = manager("");
+const m = manager("mongodb+srv://SaferSpaceAdmin:zyhfov-jaWjiw-3vatju@saferspace-arant.azure.mongodb.net/test?retryWrites=true&w=majority");
 
 // Add Support for Incoming JSON Entities
 app.use(bodyParser.json());
