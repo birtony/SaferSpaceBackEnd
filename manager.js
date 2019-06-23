@@ -162,7 +162,7 @@ module.exports = function(mongoDBConnectionString) {
                     reject(`User creation - ${error.message}`);
                 }
                 } else {
-                resolve("User was created");
+                resolve(newUser);
                 }
             }); //newUser.save
             }); // return new Promise
