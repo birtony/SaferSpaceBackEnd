@@ -47,10 +47,10 @@ passport.use(strategy);
 app.use(passport.initialize());
 
 app.use((req,res,next) => {
-    if (req.body) log.info(req.body);
-    if (req.params) log.info(req.params);
-    if(req.query) log.info(req.query);
-    console.log.info(`Received a ${req.method} request from ${req.ip} for ${req.url}`);
+    if (req.body) console.log(req.body);
+    if (req.params) console.log(req.params);
+    if(req.query) console.log(req.query);
+    console.log(`Received a ${req.method} request from ${req.ip} for ${req.url}`);
   next();
 });
 
