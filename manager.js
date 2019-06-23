@@ -200,11 +200,9 @@ module.exports = function(mongoDBConnectionString) {
         }, // usersLogin
 
         // User Update
-        userUpdate: function(username, user) {
+        userUpdate: function(_id, user) {
             return new Promise(function (resolve, reject) {
-                var id = Users.findByEmail(user.username);
-                console.log(id)
-                Users.findByIdAndUpdate(id, user, { new: true }, (error, item) => {
+                Users.findByIdAndUpdate(_id, user, { new: true }, (error, item) => {
                     if (error) {
                         // Cannot edit item
                         return reject(error.message);

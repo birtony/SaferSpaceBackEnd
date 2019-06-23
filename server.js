@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function(req, res, next) {
     if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
-      jsonwebtoken.verify(req.headers.authorization.split(' ')[1], secretOrKey, function(err, decode) {
+      jwt.verify(req.headers.authorization.split(' ')[1], secretOrKey, function(err, decode) {
         if (err) req.user = undefined;
         req.user = decode;
         next();
@@ -141,7 +141,7 @@ app.post("/api/users/login", (req, res) => {
           _id: data._id,
           username: data.username,
         };
-        var token = jwt.sign(payload, jwtOptions.secretOrKey, { expiresIn: 1000 * 10000000});
+        var token = jwt.sign(payload, secretOrKey, { expiresIn: 1000 * 10000000});
         // Return the result
         res.json({ "message": "Login was successful", token: token });
       }).catch((msg) => {
@@ -154,7 +154,8 @@ app.post("/api/users/:username/update", (req, res) => {
     if (req.user) {
         // Call the manager method
         console.log("hello epta")
-        m.userUpdate(req.params.username, req.body)
+        const {_id} = req.user;
+        m.userUpdate(_id, req.body)
         .then((data) => {
             res.json({ "message": "User updated" });
         })
