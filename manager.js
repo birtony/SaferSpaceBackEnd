@@ -171,7 +171,7 @@ module.exports = function(mongoDBConnectionString) {
         // Users
         usersLogin: function (userData) {
             return new Promise(function (resolve, reject) {
-        
+                console.log(userData);
             // Incoming data package has user name (email address) and password
             // { userName: xxx, password: yyy }
         
