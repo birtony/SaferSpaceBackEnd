@@ -126,7 +126,8 @@ app.post("/api/users/activate", (req, res) => {
 app.post("/api/users/create", (req, res) => {
     m.usersRegister(req.body)
       .then((data) => {
-        res.json({ "message": data });
+        var token = jwt.sign(payload, secretOrKey, { expiresIn: 1000 * 10000000});
+        res.json({ "message": data, token });
       }).catch((msg) => {
         res.status(400).json({ "message": msg });
       });
@@ -153,7 +154,6 @@ app.post("/api/users/login", (req, res) => {
 app.post("/api/users/:username/update", (req, res) => {
     if (req.user) {
         // Call the manager method
-        console.log("hello epta")
         const {_id} = req.user;
         m.userUpdate(_id, req.body)
         .then((data) => {
@@ -163,7 +163,7 @@ app.post("/api/users/:username/update", (req, res) => {
             res.status(404).json({ "message": "Resource not found" });
         })
     } else {
-        res.status(401).json({message: 'Poshel nahui govno'});
+        res.status(401).json({message: 'Not authorized'});
     }
 });
 
